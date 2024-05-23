@@ -1,0 +1,22 @@
+.btn {
+    padding: 20px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    background-color: #d8d8d8;
+    cursor: pointer;
+    transition: background-color 0.4s;
+
+    &:active {
+        background-color: #bb7070;
+    }
+}
+
+.deleteAllBtn {
+    background-color: orangered;
+}
+
+.deleteLastBtn {
+    background-color: tomato;
+}
+
