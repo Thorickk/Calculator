@@ -1,1 +1,1 @@
-#Calculator
+![banner with app's title and logo](./src/assets/calculator-banner.png)
