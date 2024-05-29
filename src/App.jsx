@@ -8,7 +8,6 @@ const [result, setResult] = useState('')
 
 
 function handleButtonClick(e) {
-	console.log(e.target.value)
 	setResult((prevResult) =>  prevResult + e.target.value)
 }
 
@@ -24,6 +23,11 @@ function calculateNumbers() {
 	setResult((prevResult) => eval(prevResult))
 }
 
+function handleNegation() {
+	setResult((prevResult) => -prevResult)
+} 
+
+console.log(result);
 
 
 	return (
@@ -50,7 +54,7 @@ function calculateNumbers() {
 				<Button onClick={handleButtonClick}>2</Button>
 				<Button onClick={handleButtonClick}>3</Button>
 				<Button onClick={handleButtonClick}>+</Button>
-				<Button>+/-</Button>
+				<Button onClick={handleNegation}>+/-</Button>
 				<Button onClick={handleButtonClick}>0</Button>
 				<Button onClick={handleButtonClick}>.</Button>
 				<Button onClick={calculateNumbers} style={{backgroundColor: "#5da2fd"}}>=</Button>
