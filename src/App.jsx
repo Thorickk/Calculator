@@ -5,10 +5,21 @@ import { Button } from './components/Button/Button'
 function App() {
 	const [firstNumber, setFirstNumber] = useState(0)
 	const [secondNumber, setSecondNumber] = useState(0)
-	const [operation, setOperation] = useState("")
+	const [operation, setOperation] = useState('')
+	const [equals, setEquals] = useState('')
 	const [result, setResult] = useState(0)
 
+	function handleClear() {
+		setFirstNumber(0)
+		setSecondNumber(0)
+		setOperation('')
+		setEquals('')
+		setResult(0)
+	}
+	
 	function handleButtonClick(e) {
+		equals && handleClear()
+
 		if (operation !== '') {
 			setSecondNumber(prevSecondNumber => Number(prevSecondNumber + e.target.value))
 		} else {
@@ -16,18 +27,17 @@ function App() {
 		}
 	}
 
-	function handleClear() {
-		setFirstNumber(0)
-		setSecondNumber(0)
-		setOperation("")
-		setResult(0)
-	}
 
 	function handleDeleteLastDigit() {
-		setFirstNumber(prevFirstNumber => Number(prevFirstNumber.toString().slice(0, -1)))
+		if (secondNumber !== 0) {
+			setSecondNumber(prevSecondNumber => Number(prevSecondNumber.toString().slice(0, -1)))
+		} else {
+			setFirstNumber(prevFirstNumber => Number(prevFirstNumber.toString().slice(0, -1)))
+		}
 	}
 
 	function calculateNumbers(firstNumber, secondNumber, operation) {
+		setEquals('=')
 		const finalResult = firstNumber + operation + secondNumber
 		setResult(() => eval(finalResult))
 	}
@@ -37,9 +47,18 @@ function App() {
 	}
 
 	function handleOperationClick(e) {
-		setOperation(e.target.value)
+		if (secondNumber !== 0) {
+			// calculateNumbers(firstNumber, secondNumber, operation)
+			// setFirstNumber(result)
+			console.log('wynik działania i od razu przejście z wynikiem do nowego działania')
+		} else {
+			setOperation(e.target.value)
+		}
 	}
-	console.log(result)
+	console.log(firstNumber)
+	console.log(operation)
+	console.log(secondNumber)
+	console.log(equals)
 
 	return (
 		<div className={styles.calculator}>
@@ -48,7 +67,8 @@ function App() {
 				<div className={styles.operation}>
 					{firstNumber}
 					{operation}
-					{secondNumber !== 0 ? secondNumber : ""}
+					{secondNumber !== 0 ? secondNumber : ''}
+					{equals}
 				</div>
 				<div className={styles.result}>{result}</div>
 			</div>
@@ -76,7 +96,9 @@ function App() {
 				<Button onClick={handleNegation}>+/-</Button>
 				<Button onClick={handleButtonClick}>0</Button>
 				<Button onClick={handleButtonClick}>.</Button>
-				<Button onClick={() => calculateNumbers(firstNumber, secondNumber, operation)} style={{ backgroundColor: '#5da2fd' }}>
+				<Button
+					onClick={() => calculateNumbers(firstNumber, secondNumber, operation)}
+					style={{ backgroundColor: '#5da2fd' }}>
 					=
 				</Button>
 			</div>
